@@ -1,15 +1,29 @@
 numbers = open('input.txt').read().split(',')
 numbers = [int(i) for i in numbers]
 
-numbers[1] = 12
-numbers[2] = 2
 
-i = 0
-while numbers[i] != 99:
-    if numbers[i] == 1:
-        numbers[numbers[i+3]] = numbers[numbers[i+1]] + numbers[numbers[i+2]]
-    elif numbers[i] == 2:
-        numbers[numbers[i+3]] = numbers[numbers[i+1]] * numbers[numbers[i+2]]
-    i += 4
+def calculate(input, noun, verb):
+    input[1] = noun
+    input[2] = verb
+    i = 0
+    while input[i] != 99:
+        try:
+            if input[i] == 1:
+                input[input[i + 3]] = input[input[i + 1]] + input[input[i + 2]]
+            elif input[i] == 2:
+                input[input[i + 3]] = input[input[i + 1]] * input[input[i + 2]]
+        except:
+            pass
+        i += 4
+    return input[0]
 
-print(numbers[0])
+
+answer = 19690720
+
+for noun in range(0, 100):
+    for verb in range(0, 100):
+        iteration = numbers[:]
+        test = calculate(iteration, noun, verb)
+        if test == answer:
+            print(100 * noun + verb)
+            exit()
