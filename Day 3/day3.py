@@ -1,6 +1,3 @@
-lines = open("input.txt").read().split('\n')
-
-
 def trackCoordinates(instruction, recent):
     # take the most recent location and the next instruction
     # get all the coordinates the wire passes with this instruction
@@ -59,6 +56,7 @@ def findClosestManhattan(wireInstructions1, wireInstructions2):
     return min(manhattans)
 
 
+lines = open("input.txt").read().split('\n')
 wireInstructions1 = lines[0].split(',')
 wireInstructions2 = lines[1].split(',')
 
