@@ -31,12 +31,21 @@ def trackPath(wire):
 def findIntersection(path1, path2):
     # find all intersections between the wires
     # minus the point of origin
-    return list(set(path1).intersection(path2)).remove((0,0))
+    return list(set(path1).intersection(path2))
 
 
 def manhattan(intersection, origin):
     # find the manhattan distance to the origin for an intersection
     return abs(origin[1] - intersection[1]) + abs(origin[0] + intersection[0])
+
+
+def findSteps(wirePath1, wirePath2, intersections):
+    # for each intersection find the sum of the distance the wires have travelled
+    # then return the shortest sum
+    distances = []
+    for i in intersections:
+        distances.append(wirePath1.index(i) + wirePath2.index(i))
+    return min(distances)
 
 
 def findClosestManhattan(wireInstructions1, wireInstructions2):
@@ -46,6 +55,7 @@ def findClosestManhattan(wireInstructions1, wireInstructions2):
 
     # find all intersections between the wires
     intersections = findIntersection(wirepath1, wirepath2)
+    intersections.remove((0,0))
 
     # find the manhattan distance for every intersection
     manhattans = []
@@ -53,7 +63,9 @@ def findClosestManhattan(wireInstructions1, wireInstructions2):
         manhattans.append(manhattan(i, (0, 0)))
 
     # return the lowest manhattan distance
-    return min(manhattans)
+    print(min(manhattans))
+
+    return findSteps(wirepath1, wirepath2, intersections)
 
 
 lines = open("input.txt").read().split('\n')
