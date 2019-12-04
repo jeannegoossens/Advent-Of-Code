@@ -20,6 +20,9 @@ def checkPassword(pw):
             current = 1  # reset current chain
         last = char
 
+    if current == 2:
+        same += 1
+
     if same > 0:  # if there was at least one occurrence of 2 equal characters in a row
         return pw
     return 0
@@ -28,7 +31,6 @@ def checkPassword(pw):
 count = 0
 for x in range(low, high):
     if checkPassword(x) > 0:
-        print(x)
         count += 1
 
 print(count)
