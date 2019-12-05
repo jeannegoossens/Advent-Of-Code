@@ -27,6 +27,28 @@ def getvalue(numbers, i):
         elif opcode[3] == 4:
             print(first)
             i += 2
+        elif opcode[3] == 5:
+            if first != 0:
+                i = numbers[second]
+            else:
+                i += 2
+        elif opcode[3] == 6:
+            if first == 0:
+                i = numbers[second]
+            else:
+                i += 2
+        elif opcode[3] == 7:
+            if first < second:
+                numbers[third] = 1
+            else:
+                numbers[third] = 0
+            i += 4
+        elif opcode[3] == 8:
+            if first == second:
+                numbers[third] = 1
+            else:
+                numbers[third] = 0
+            i += 4
 
 numbers = open('input.txt').read().split(',')
 numbers = [int(i) for i in numbers]
