@@ -17,3 +17,6 @@ s = 0
 for n in G.nodes:
     s += len(nx.shortest_path(G, source='COM', target=n)) - 1
 print(s)
+
+# part 2
+print(len(nx.shortest_path(G, source='YOU', target='SAN')) - 3)
