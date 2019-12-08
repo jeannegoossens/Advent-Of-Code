@@ -32,8 +32,21 @@ from machine import Machine
 m = Machine()
 
 
-# example = '3,21,1008,21,8,20,1005,20,22,107,8,21,20,1006,20,31,1106,0,36,98,0,0,1002,21,125,20,4,20,1105,1,46,104,999,1105,1,46,1101,1000,1,20,4,20,1105,1,46,98,99'
-# example = example.split(',')
+def runprogram(sequence, numbers):  # 3,1,2,4,0
+    nextinput = 0
+    for amp in sequence:
+        copynumbers = numbers
+        print(amp)
+        m = Machine()
+        nextinput = m.getvalue(copynumbers, 0, (amp, nextinput))
+    return nextinput
+
+
+def trysequences(numbers):
+    return runprogram([3,1,2,4,0], numbers)
+
+
 numbers = open('input.txt').read().split(',')
 numbers = [int(i) for i in numbers]
-print(m.getvalue(numbers, 0))
+
+print(trysequences(numbers))

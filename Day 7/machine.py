@@ -14,7 +14,8 @@ class Machine():
         return (p3, p2, p1, op)
 
 
-    def getvalue(self, numbers, i):
+    def getvalue(self, numbers, i, tup):
+        nextinput = tup[0]
         while str(numbers[i]).zfill(5)[-2:] != '99':
             opcode = self.interpret(numbers[i])
 
@@ -29,7 +30,8 @@ class Machine():
                 numbers[third] = first * second
                 i += 4
             elif opcode[3] == 3:
-                numbers[numbers[i + 1]] = int(input('Geef een input: '))
+                numbers[numbers[i + 1]] = nextinput
+                nextinput = tup[1]
                 i += 2
             elif opcode[3] == 4:
                 print(first)
