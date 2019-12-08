@@ -11,8 +11,8 @@ def runprogram(sequence, numbers):  # 3,1,2,4,0
     return nextinput
 
 
-def trysequences(numbers):
-    sequences = list(itertools.permutations([0,1,2,3,4]))
+def trysequences(numbers, seq):
+    sequences = list(itertools.permutations(seq))
     highest = 0
     copynumbers = numbers.copy()
     for s in sequences:
@@ -25,9 +25,9 @@ def trysequences(numbers):
 
 numbers = open('input.txt').read().split(',')
 numbers = [int(i) for i in numbers]
-print(len(numbers))
 
-print(trysequences(numbers))
+seq = [0,1,2,3,4]
+print(trysequences(numbers, seq))
 
 # numbers : 3,8,1001,8,10,8,105,1,0,0
 #
