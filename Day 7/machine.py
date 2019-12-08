@@ -14,14 +14,19 @@ class Machine():
         return (p3, p2, p1, op)
 
 
-    def getvalue(self, numbers, i, tup):
-        nextinput = tup[0]
+    def getvalue(self, numbers, phase, inp):
+        next = phase
+        i = 0
+
+        outp = 0
         while str(numbers[i]).zfill(5)[-2:] != '99':
             opcode = self.interpret(numbers[i])
+            print(opcode, i, numbers[i:i+4])
 
             first = numbers[numbers[i + 1]] if opcode[2] == 0 else numbers[i + 1]
-            second = numbers[numbers[i + 2]] if opcode[1] == 0 else numbers[i + 2]
-            third = numbers[i + 3]
+            if opcode[3] <= 2 or opcode[3] >= 5:
+                second = numbers[numbers[i + 2]] if opcode[1] == 0 else numbers[i + 2]
+                third = numbers[i + 3]
 
             if opcode[3] == 1:
                 numbers[third] = first + second
@@ -30,11 +35,13 @@ class Machine():
                 numbers[third] = first * second
                 i += 4
             elif opcode[3] == 3:
-                numbers[numbers[i + 1]] = nextinput
-                nextinput = tup[1]
+                print('using input', next)
+                numbers[numbers[i + 1]] = next
+                next = inp
                 i += 2
             elif opcode[3] == 4:
-                print(first)
+                print('OUTPUT', first)
+                outp = first
                 i += 2
             elif opcode[3] == 5:
                 if first != 0:
@@ -58,3 +65,4 @@ class Machine():
                 else:
                     numbers[third] = 0
                 i += 4
+        return outp
