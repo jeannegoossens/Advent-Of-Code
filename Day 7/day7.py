@@ -1,21 +1,26 @@
-
+import itertools
 from machine import Machine
 
 
 def runprogram(sequence, numbers):  # 3,1,2,4,0
     nextinput = 0
-    print('sequence', sequence)
     for phase in sequence:
         copynumbers = numbers.copy()
-        print('current phase:', phase)
         m = Machine()
         nextinput = m.getvalue(copynumbers, phase, nextinput)
-        print('phase', phase, 'outputs:', nextinput)
     return nextinput
 
 
 def trysequences(numbers):
-    return runprogram([1,0,4,3,2], numbers)
+    sequences = list(itertools.permutations([0,1,2,3,4]))
+    highest = 0
+    copynumbers = numbers.copy()
+    for s in sequences:
+        result = runprogram(s, copynumbers)
+        if result > highest:
+            highest = result
+        print(s, highest)
+    return highest
 
 
 numbers = open('input.txt').read().split(',')

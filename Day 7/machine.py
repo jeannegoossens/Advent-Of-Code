@@ -21,7 +21,6 @@ class Machine():
         outp = 0
         while str(numbers[i]).zfill(5)[-2:] != '99':
             opcode = self.interpret(numbers[i])
-            print(opcode, i, numbers[i:i+4])
 
             first = numbers[numbers[i + 1]] if opcode[2] == 0 else numbers[i + 1]
             if opcode[3] <= 2 or opcode[3] >= 5:
@@ -35,12 +34,10 @@ class Machine():
                 numbers[third] = first * second
                 i += 4
             elif opcode[3] == 3:
-                print('using input', next)
                 numbers[numbers[i + 1]] = next
                 next = inp
                 i += 2
             elif opcode[3] == 4:
-                print('OUTPUT', first)
                 outp = first
                 i += 2
             elif opcode[3] == 5:
