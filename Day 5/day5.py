@@ -1,55 +1,39 @@
-def interpret(opcode):
-    opcode = str(opcode).zfill(5)
-    op = int(opcode[-2:])
-    p1 = int(opcode[-3])
-    p2 = int(opcode[-4])
-    p3 = 0  # always 0
-    return (p3, p2, p1, op)
+# SUMMARY OF THIS PROGRAM
 
-def getvalue(numbers, i):
-    while str(numbers[i]).zfill(5)[-2:] != 99:
-        opcode = interpret(numbers[i])
-        
-        first  = numbers[numbers[i+1]] if opcode[2] == 0 else numbers[i+1]
-        if opcode[3] <= 2:
-            second = numbers[numbers[i+2]] if opcode[1] == 0 else numbers[i+2]
-            third  = numbers[i+3]
+# FROM DAY 2:
+# position 1 = opcode
+# position 2 = input 1 location
+# position 3 = input 2 location
+# position 4 = output location
+#
+# instruction pointer = address of current instruction (so the opcode basically)
+#
+# opcodes:
+# 1 = sum (takes 3 parameters)
+# 2 = multiply (takes 3 parameters)
+# 3 = takes input, saves to first parameters address (takes 1 parameter)
+# 4 = takes value of parameter, outputs it (takes 1 parameter)
+# 5 = jump-if-true: if par1 is not zero, instruction pointer becomes the value of par2
+# 6 = jump-if-false: if par1 is zero, instruction pointer becomes the value of par2
+# 7 = less-than: if par1 < par2, then position.par3 = 1 else 0
+# 8 = equals: if par1 == par2, then position.par3 = 1 else 0
+#
+# parameter modes:
+# 0 = position mode - causes the parameter to be interpreted as a position
+# 1 = immediate mode - parameter is interpreted as a value
+#
+# parameter mode is stored in same value as opcode:
+# first 2 digits: opcode
+# the other digits are the three parameters' parameter modes
 
-        if opcode[3] == 1:
-            numbers[third] = first + second
-            i += 4
-        elif opcode[3] == 2:
-            numbers[third] = first * second
-            i += 4
-        elif opcode[3] == 3:
-            numbers[numbers[i+1]] = int(input('Geef een input: '))
-            i += 2
-        elif opcode[3] == 4:
-            print(first)
-            i += 2
-        elif opcode[3] == 5:
-            if first != 0:
-                i = numbers[second]
-            else:
-                i += 2
-        elif opcode[3] == 6:
-            if first == 0:
-                i = numbers[second]
-            else:
-                i += 2
-        elif opcode[3] == 7:
-            if first < second:
-                numbers[third] = 1
-            else:
-                numbers[third] = 0
-            i += 4
-        elif opcode[3] == 8:
-            if first == second:
-                numbers[third] = 1
-            else:
-                numbers[third] = 0
-            i += 4
 
+from machine import Machine
+
+m = Machine()
+
+
+# example = '3,21,1008,21,8,20,1005,20,22,107,8,21,20,1006,20,31,1106,0,36,98,0,0,1002,21,125,20,4,20,1105,1,46,104,999,1105,1,46,1101,1000,1,20,4,20,1105,1,46,98,99'
+# example = example.split(',')
 numbers = open('input.txt').read().split(',')
 numbers = [int(i) for i in numbers]
-getvalue(numbers, 0)
+print(m.getvalue(numbers, 0))
