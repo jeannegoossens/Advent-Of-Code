@@ -10,6 +10,9 @@ class Asteroid():
         suby = self.y - other.y
         return (subx, suby)
     
+    def __lt__(self, other):
+        return ((self.y, self.x) < (other.y, other.x))
+    
     def __repr__(self):
         return 'Asteroid located on coordinates {x: %s, y: %s} detects %s others' % (self.x, self.y, self.visible)
     
@@ -19,11 +22,16 @@ class Asteroid():
         try:  # catch div by 0
             vector = (vector[0]/abs(vector[0]), vector[1]/abs(vector[0]))
         except: pass
-        self.vectors.append(vector)
+        
+        # store the other asteroids in their relative vector
+        if vector in self.vectors:
+            self.vectors[vector].append(other)
+        else:
+            self.vectors[vector] = [other]
         
         # asteroids that are behind each other will have the same vector
         # e.g. (2,4) is behind (1,2)
-        self.visible = len(list(set(self.vectors)))
+        self.visible = len(self.vectors.keys())
         
 
 astmap = open('input.txt').read().split('\n')
@@ -39,7 +47,6 @@ for line in range(len(example)):
 # for every asteroid, get the vector direction to all other asteroids
 for a in asteroids:
     for b in asteroids:
-        if a != b:
             a.setVector(b)
 
 # get the highest amount of detected asteroids
