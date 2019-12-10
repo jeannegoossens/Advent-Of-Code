@@ -38,6 +38,7 @@ class Machine():
                 next = inp
                 i += 2
             elif opcode[3] == 4:
+                print(first)
                 outp = first
                 i += 2
             elif opcode[3] == 5:

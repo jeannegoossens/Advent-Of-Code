@@ -2,7 +2,7 @@ class Asteroid():
     def __init__(self, x, y):
         self.x = x
         self.y = y
-        self.vectors = []
+        self.vectors = {}
         self.visible = 0
     
     def __sub__(self, other):
@@ -38,16 +38,16 @@ astmap = open('input.txt').read().split('\n')
 
 # get a list of all the asteroids in the map, and their coordinates
 asteroids = []
-for line in range(len(example)):
-    for c in range(len(example[line])):
-        if example[line][c] == '#':
+for line in range(len(astmap)):
+    for c in range(len(astmap[line])):
+        if astmap[line][c] == '#':
             a = Asteroid(c, line)
             asteroids.append(a)
 
 # for every asteroid, get the vector direction to all other asteroids
 for a in asteroids:
     for b in asteroids:
-            a.setVector(b)
+        a.setVector(b)
 
 # get the highest amount of detected asteroids
 maxim = 0
@@ -56,3 +56,5 @@ for a in asteroids:
     if a.visible >= maxim:
         print(a)
 print(maxim)
+
+print(asteroids[237].vectors[(0, 0)])

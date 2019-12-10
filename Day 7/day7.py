@@ -5,6 +5,7 @@ from machine import Machine
 def runprogram(sequence, numbers):  # 3,1,2,4,0
     nextinput = 0
     for phase in sequence:
+        print('phase', phase)
         copynumbers = numbers.copy()
         m = Machine()
         nextinput = m.getvalue(copynumbers, phase, nextinput)
@@ -19,7 +20,6 @@ def trysequences(numbers, seq):
         result = runprogram(s, copynumbers)
         if result > highest:
             highest = result
-        print(s, highest)
     return highest
 
 
@@ -27,7 +27,12 @@ numbers = open('input.txt').read().split(',')
 numbers = [int(i) for i in numbers]
 
 seq = [0,1,2,3,4]
-print(trysequences(numbers, seq))
+# print(trysequences(numbers, seq))
+
+seq2 = [5,6,7,8,9]
+# print(trysequences(numbers, seq2))
+
+print(runprogram(seq2, numbers))
 
 # numbers : 3,8,1001,8,10,8,105,1,0,0
 #
