@@ -20,7 +20,7 @@ class Asteroid():
         vector = self - other
         # simplify these vectors so i can compare them
         try:  # catch div by 0
-            vector = (vector[0]/abs(vector[0]), vector[1]/abs(vector[0]))
+            vector = vector[0] / vector[1]
         except: pass
         
         # store the other asteroids in their relative vector
@@ -57,4 +57,4 @@ for a in asteroids:
         print(a)
 print(maxim)
 
-print(asteroids[237].vectors[(0, 0)])
+# print('\n'.join(astmap))
