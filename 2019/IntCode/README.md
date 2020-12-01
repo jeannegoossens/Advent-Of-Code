@@ -8,3 +8,21 @@ Let's hope that gets improved in 2020.
 
 The IntCode computer did stick in my mind though. I still want to understand it and build it completely, so that's what I'm going to try.
 I'm going back to 2019 AOC and try to complete the IntCode puzzles one by one. I'll document my progress and (hopefully at some point) an explanation on the IntCode computer once I understand it enough.
+
+## The IntCode Computer
+
+### Terms and words
+
+`Intcode program` a list of integers separated by commas
+
+`opcode` (either 1, 2 or 99) indicates what to do
+
+`instruction` combination of opcode and parameters
+
+`address` a position in memory
+
+`instruction pointer` address of the current instruction (after an instruction finishes, the instruction pointer increases the number of values in the instruction)
+
+`noun` the value placed in address 1
+
+`verb` the value placed in address 2
