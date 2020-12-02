@@ -1,35 +1,29 @@
 input = open('input.txt').read().split('\n')
 
 
-def checkPassword(line):
-    rule, letter, password = line.replace(':', '').split(' ')
-    fromnr, tonr = rule.split('-')
+def check_password(least, most, letter, password):
     amount = password.count(letter)
-    if amount >= int(fromnr) and amount <= int(tonr):
+    if least <= amount <= most:
         return True
     else:
         return False
 
 
-correct = 0
+correct_first = 0
+correct_second = 0
 for line in input:
-    if checkPassword(line):
-        correct += 1
-print('answer to part 1:', correct)
-
-
-def newPolicy(line):
     rule, letter, password = line.replace(':', '').split(' ')
-    index1, index2 = rule.split('-')
-    if (password[int(index1)-1] == letter and password[int(index2)-1] != letter) or \
-            (password[int(index1)-1] != letter and password[int(index2)-1] == letter):
-        return True
-    else:
-        return False
+    least, most = map(int, rule.split('-'))
 
+    # for part 1: count the occurrence of the letter in the password
+    # count should be between (including) boundaries
+    if check_password(least, most, letter, password):
+        correct_first += 1
 
-correct = 0
-for line in input:
-    if newPolicy(line):
-        correct += 1
-print('answer to part 2:', correct)
+    # for part 2: count only the occurrence of the letter in the given indices
+    # count should be exactly 1
+    password = password[least - 1] + password[most - 1]
+    if check_password(1, 1, letter, password):
+        correct_second += 1
+print('answer to part 1:', correct_first)
+print('answer to part 2:', correct_second)
