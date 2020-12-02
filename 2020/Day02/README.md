@@ -1,4 +1,4 @@
-#Day 2
+# Day 2
 
 The puzzle for today was about passwords. Each password had to be checked for following company policy, and every password came with its own rule.
 The input for each password consisted of: `rule`, `letter` and `password`.
