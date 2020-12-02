@@ -10,6 +10,4 @@ I then only had to check whether that count is within the given limits, and retu
 
 ## Part 2
 For the second part, the rules were different. Now, the given letter had to occur exactly _one_ time in the password at the indices given by the rule numbers (starting at 1 rather than 0).
-I created a separate method for this which checks both indices and whether the letter occurs once within those. Then I could count the number of valid passwords.
-
-I regret making a different method for this second part, and I feel like I overlooked a way to use the same function for both parts. I might improve this code once I figure out how to make it more efficient and shorter.
+To do this, I took only the part of the password that is indicated by the first and second index, and submitted that to the existing method, with boundaries 1 and 1 instead of the indices. This way I could count the amount of valid passwords again, with the new rules.
