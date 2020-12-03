@@ -11,6 +11,14 @@ def multiplication(input, first, second):
     return input[first] * input[second]
 
 
+def takeInput(intcode, first):
+    return first
+
+
+def giveOutput(intcode, first):
+    return intcode[first]
+
+
 def run(intcode, noun, verb):
     intcode[1] = noun
     intcode[2] = verb
@@ -23,6 +31,12 @@ def run(intcode, noun, verb):
         elif opcode == 2:
             intcode[intcode[i+3]] = multiplication(intcode, intcode[i+1], intcode[i+2])
             i += 4
+        elif opcode == 3:
+            intcode[intcode[i+1]] = 000
+            i += 2
+        elif opcode == 4:
+            giveOutput(intcode, intcode[i+1])
+            i += 2
         else:
             print(intcode[i:i+4])
             i += 4

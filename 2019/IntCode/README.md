@@ -26,3 +26,5 @@ I'm going back to 2019 AOC and try to complete the IntCode puzzles one by one. I
 `noun` the value placed in address 1
 
 `verb` the value placed in address 2
+
+`parameter mode` 0 if position mode, 1 if immediate mode
