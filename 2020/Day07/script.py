@@ -37,11 +37,11 @@ def checkOutside(bag):
 
 
 def checkInside(color):
-    root = pt2[color]
-    if root is None:
+    inside = pt2[color]
+    if inside is None:
         return 0
     else:
-        return sum([root[key]*checkInside(key) + root[key] for key in root])
+        return sum([inside[amount] * checkInside(amount) + inside[amount] for amount in inside])
 
 
 total_bags = []
