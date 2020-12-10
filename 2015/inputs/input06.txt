@@ -1,9 +1,4 @@
-# 2015
-# Day 6
-
-import re
-
-input = """turn off 660,55 through 986,197
+turn off 660,55 through 986,197
 turn off 341,304 through 638,850
 turn off 199,133 through 461,193
 toggle 322,558 through 977,958
@@ -302,46 +297,4 @@ turn off 446,432 through 458,648
 turn on 715,871 through 722,890
 toggle 424,675 through 740,862
 toggle 580,592 through 671,900
-toggle 296,687 through 906,775"""
-
-# input = """turn on 4,5 through 7,8
-# turn off 2,7 through 5,9
-# toggle 0,0 through 9,9"""
-input = input.split('\n')
-grid = [[0 for i in range(1000)] for j in range(1000)]
-
-
-def through(numbers):
-    cos = []
-    for a in range(numbers[0], numbers[2]+1):
-        for b in range(numbers[1], numbers[3]+1):
-            cos.append((a,b))
-    return cos
-
-def flip(cos, grid, setting):
-    for c in cos:
-        if setting == 'on':
-            grid[c[0]][c[1]] += 1
-        elif setting == 'off':
-            grid[c[0]][c[1]] = max(0, grid[c[0]][c[1]]-1)
-        elif setting == 'toggle':
-            grid[c[0]][c[1]] += 2  # part 2
-            # if grid[c[0]][c[1]] == 1:
-            #     grid[c[0]][c[1]] = 0
-            # else:
-            #     grid[c[0]][c[1]] = 1
-
-    return grid
-
-for x in input:
-    numbers = list(map(int, re.findall(r'[0-9]+', x)))
-    cos = through(numbers)
-    if x.startswith('turn on'):
-        setting = 'on'
-    elif x.startswith('turn off'):
-        setting = 'off'
-    else:
-        setting = 'toggle'
-    grid = flip(cos, grid, setting)
-
-print(sum(sum(x) for x in grid))
+toggle 296,687 through 906,775

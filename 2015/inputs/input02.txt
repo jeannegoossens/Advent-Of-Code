@@ -1,7 +1,4 @@
-# 2015
-# Day 2
-
-input = """4x23x21
+4x23x21
 22x29x19
 11x4x11
 8x10x5
@@ -1000,18 +997,4 @@ input = """4x23x21
 10x15x23
 21x29x14
 20x29x30
-23x11x5"""
-
-input = input.split('\n')
-paper = 0
-ribbon = 0
-
-for x in input:
-    l,w,h = map(int, x.split('x'))
-    slack = sorted([l,w,h])[0] * sorted([l,w,h])[1]
-    surface = 2 * l * w + 2 * w * h + 2 * h * l
-    paper += slack + surface
-    ribbon += sorted([l,w,h])[0]*2 + sorted([l,w,h])[1]*2 + l*w*h
-
-print(paper)
-print(ribbon)
+23x11x5
