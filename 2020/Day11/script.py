@@ -30,7 +30,16 @@ def checkNeighbours(grid, x, y):
 
     occupied = 0
     for n, c in neighbours.items():
-        if grid[x + c[0]][y + c[1]] == '#':
+        c0 = c[0]
+        c1 = c[1]
+        if grid[x + c0][y + c1] == '.':
+            while (0 <= x+c0+c[0] <= len(grid)-1) and (0 <= y+c1+c[1] <= len(grid[0])-1):
+                if grid[x + c0][y + c1] == '.':
+                    c0 += c[0]
+                    c1 += c[1]
+                elif grid[x + c0][y + c1] in ['L', '#']:
+                    break
+        if grid[x + c0][y + c1] == '#':
             occupied += 1
     return occupied
 
@@ -51,7 +60,7 @@ def generation(grid):
                 # print(x, y, '=', n)
                 if n == 0:
                     new[x][y] = '#'
-                elif n >= 4:
+                elif n >= 5:  # 4 in part 1
                     new[x][y] = 'L'
     # printgrid(new)
     return new
@@ -68,4 +77,6 @@ while new != old:
 occupied = 0
 for x in new:
     occupied += x.count('#')
-print('solution to part 1:', occupied)
+# print('solution to part 1:', occupied)
+
+print('solution to part 2:', occupied)
