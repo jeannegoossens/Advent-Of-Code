@@ -1,37 +1,42 @@
 input = open('input.txt').read().split('\n')
 
-x = 0
-y = 0
+ship_x = 0
+ship_y = 0
+
+waypoint_x = 10
+waypoint_y = 1
+
 compass = ['north', 'east', 'south', 'west']
 facing = 'east'
 
+
+def rotate_waypoint(w_x, w_y, direction, distance):
+    for i in range(int(distance/90)):
+        if direction == 'R':
+            t = w_y
+            w_y = w_x * -1
+            w_x = t
+        elif direction == 'L':
+            t = w_y
+            w_y = w_x
+            w_x = t * -1
+    return w_x, w_y
+
+
 for instruction in input:
     direction, distance = instruction[0], int(instruction[1:])
-    if direction == 'L':
-        facing = compass[compass.index(facing) - int(distance/90)]
-    elif direction == 'R':
-        turn = int(distance / 90)
-        current = compass.index(facing)
-        new = current + turn
-        if new > 3:
-            new = new - 4
-        facing = compass[new]
+    if direction in ['L', 'R']:
+        waypoint_x, waypoint_y = rotate_waypoint(waypoint_x, waypoint_y, direction, distance)
     elif direction == 'N':
-        y += distance
+        waypoint_y += distance
     elif direction == 'E':
-        x += distance
+        waypoint_x += distance
     elif direction == 'S':
-        y -= distance
+        waypoint_y -= distance
     elif direction == 'W':
-        x -= distance
+        waypoint_x -= distance
     elif direction == 'F':
-        if facing == 'north':
-            y += distance
-        elif facing == 'east':
-            x += distance
-        elif facing == 'south':
-            y -= distance
-        elif facing == 'west':
-            x -= distance
+        ship_x += distance * waypoint_x
+        ship_y += distance * waypoint_y
 
-print('solution to part 1:', abs(x) + abs(y))
+print('solution to part 2:', abs(ship_x) + abs(ship_y))
