@@ -54,11 +54,20 @@ def generation(grid):
             elif old[x][y] == '.':
                 if n == 3:
                     new[x][y] = '#'
+            # part 2:
+            if (x,y) in [(0,0), (0,len(old[0])-1), (len(old)-1, 0), (len(old)-1, len(old[0])-1)]:
+                new[x][y] = '#'
     # printgrid(new)
     return new
 
 
 old = copy.deepcopy(grid)
+# part 2:
+old[0][0] = '#'
+old[0][-1] = '#'
+old[-1][0] = '#'
+old[-1][-1] = '#'
+
 # printgrid(old)
 new = generation(old)
 
@@ -73,3 +82,4 @@ for x in new:
     on += x.count('#')
 
 print('solution to part 1:', on)
+print('solution to part 2:', on)
