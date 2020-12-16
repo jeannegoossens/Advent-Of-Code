@@ -43,6 +43,5 @@ for line in input:
                     option = option[:c] + str(p[i]) + option[c + 1:]
                     i += 1
             mem[int(option, 2)] = number
-print(mem)
 
 print('solution to part 2:', sum([v for v in mem.values()]))
