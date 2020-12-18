@@ -1,6 +1,6 @@
 import copy
 
-grid = open('inp.txt').read().split('\n')
+grid = open('input.txt').read().split('\n')
 # grid = [[list(x) for x in grid],
 #         [['.' for _ in range(len(grid[0]))] for _ in range(len(grid))],
 #         [['.' for _ in range(len(grid[0]))] for _ in range(len(grid))]]

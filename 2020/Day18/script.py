@@ -1,4 +1,4 @@
-inp = open('inputs.txt').read().split('\n')
+inp = open('input.txt').read().split('\n')
 
 import re
 
