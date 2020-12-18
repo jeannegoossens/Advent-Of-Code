@@ -1,4 +1,4 @@
-input = open('inp.txt').read().split('\n\n')
+input = open('input.txt').read().split('\n\n')
 
 ticket = list(map(int, input[1].split('\n')[1].split(',')))
 
