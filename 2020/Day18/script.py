@@ -4,21 +4,24 @@ import re
 
 
 def solution(equation):
-    sum = 0
+    additions = re.findall(r'\d[\s+\d]+', equation)
+    for addition in additions:
+        a = sum([int(u) for u in addition.split(' ') if u.isnumeric()])
+        equation = equation.replace(addition, str(a) + ' ')
+
+    fullsum = 0
     operator = None
     for x in equation.split(' '):
-        if x not in ['(', ')']:
-            if x.isnumeric():
-                if not operator:
-                    sum += int(x)
-                else:
-                    if operator == '+':
-                        sum += int(x)
-                    elif operator == '*':
-                        sum *= int(x)
-            elif x in ['+', '*']:
-                operator = x
-    return sum
+        if x.isnumeric():
+            if not operator:
+                fullsum += int(x)
+            else:
+                if operator == '*':
+                    fullsum *= int(x)
+        elif x == '*':
+            operator = x
+
+    return fullsum
 
 
 def solve(equation):
@@ -35,8 +38,13 @@ def solve(equation):
         return solution(equation)
 
 
+# 701339185745 part 1
+
 total = 0
 for line in inp:
     sol = solve(line)
+    print(line, '=', sol)
     total += sol
-print('solution to part 1', total)
+print('solution to part 2', total)
+
+# 4097023550329 too low
