@@ -51,18 +51,21 @@ print('\n', columns)
 myticket = {}
 
 for rule, check in rules.items():
+    myticket[rule] = []
     for i in range(len(columns)):
         if check_column(list(columns[i]), check):
-            print('column', i, 'is valid for rule', rule, check)
-            myticket[rule] = ticket[i]
-    print(myticket)
+            # print('column', i, 'is valid for rule', rule, check)
+            myticket[rule].append(i)  # used to be ticket[i]
+    # print(myticket)
 
-product = 1
-for k, v in myticket.items():
-    if k.startswith('departure'):
-        product *= v
+print(myticket)
 
-print('solution to part 2:', product)
+# product = 1
+# for k, v in myticket.items():
+#     if k.startswith('departure'):
+#         product *= v
+#
+# print('solution to part 2:', product)
 
 # 115709693237 too low
 # 27820881360901 too high
