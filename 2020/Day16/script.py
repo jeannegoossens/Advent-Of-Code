@@ -7,9 +7,6 @@ others = [list(map(int, o.split(','))) for o in input[2].split('\n')[1:]]
 rules = {x.split(': ')[0] : x.split(': ')[1].split(' or ') for x in input[0].split('\n')}
 rules = {k : [list(map(int, a.split('-'))) for a in v] for k,v in rules.items()}
 
-print('ticket', ticket)
-print('others', others)
-print('rules', rules)
 
 def check_number(n, check):
     if check[0][0] <= n <= check[0][1] or check[1][0] <= n <= check[1][1]:
@@ -32,21 +29,17 @@ for other in others:
     if ticket_valid:
         valid.append(other)
 
-print('\nsolution to part 1:', sum(invalids))
-
-# 25895
+print('solution to part 1:', sum(invalids))
 
 
 def check_column(column, check):
     for c in column:
         if not check_number(c, check):
-            # print('invalid rule', check, 'for number', c)
             return False
     return True
 
 
 columns = [*zip(*valid)]
-print('\n', columns)
 
 myticket = {}
 
@@ -54,18 +47,20 @@ for rule, check in rules.items():
     myticket[rule] = []
     for i in range(len(columns)):
         if check_column(list(columns[i]), check):
-            # print('column', i, 'is valid for rule', rule, check)
             myticket[rule].append(i)  # used to be ticket[i]
-    # print(myticket)
 
-print(myticket)
+myticket = {k: v for k, v in sorted(myticket.items(), key=lambda item: len(item[1]))}
 
-# product = 1
-# for k, v in myticket.items():
-#     if k.startswith('departure'):
-#         product *= v
-#
-# print('solution to part 2:', product)
+positions = {}
 
-# 115709693237 too low
-# 27820881360901 too high
+for k, v in myticket.items():
+    for i in v:
+        if i not in positions:
+            positions[i] = k
+
+product = 1
+for k, v in positions.items():
+    if v.startswith('departure'):
+        product *= ticket[k]
+
+print('solution to part 2:', product)
