@@ -4,7 +4,7 @@ import re
 
 
 def solution(equation):
-    additions = re.findall(r'\d[\s+\d]+', equation)
+    additions = re.findall(r'([\d]+(?:[\s]{1}\+[\s]{1}[\d]+)+)', equation)
     for addition in additions:
         a = sum([int(u) for u in addition.split(' ') if u.isnumeric()])
         equation = equation.replace(addition, str(a) + ' ')
@@ -47,4 +47,4 @@ for line in inp:
     total += sol
 print('solution to part 2', total)
 
-# 4097023550329 too low
+# 4208490449905 part 2
