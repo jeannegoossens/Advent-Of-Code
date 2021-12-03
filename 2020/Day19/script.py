@@ -16,6 +16,17 @@ def decodeRule(rulebook, rule):
                 rule = re.sub(pattern, ' ( ' + rulebook[r] + ' ) ', ' '+rule+' ').strip()
     return rule
 
+
+# part 1: 113
+
+# part 2
+rulebook['8'] = '42 | 42 8'
+rulebook['11'] = '42 31 | 42 11 31'
+# so basically...
+rulebook['8'] = '42 | ( 42 )+'
+rulebook['11'] = '42 31 | 42 42 31 | 42 ( 31 )+'
+
+
 rule = decodeRule(rulebook, rulebook['0'])
 rule = rule.replace(' ', '').replace('")', '').replace('("', '')
 
@@ -26,4 +37,9 @@ for m in messages:
         count += 1
 print(count)
 
-# 113 part 1
+# part 2 attempts log
+# 113 too low
+# 198 too low
+# 268 incorrect
+# 272 too high
+# 276 incorrect
