@@ -1,9 +1,6 @@
 import copy
 inp = open("inputs/day3.txt").read().split('\n')
 
-gamma = ''
-epsilon = ''
-
 
 def get_position_count(binaries):
     positions = [[0, 0] for i in range(len(inp[0]))]
@@ -13,15 +10,14 @@ def get_position_count(binaries):
     return positions
 
 
+gamma = ''
+epsilon = ''
 positions = get_position_count(inp)
 for p in range(len(positions)):
     gamma += str(positions[p].index(max(positions[p])))
     epsilon += str(positions[p].index(min(positions[p])))
 print("part 1", int(gamma, 2) * int(epsilon, 2))
-# 3901196
-
-oxygen = copy.deepcopy(inp)
-co2 = copy.deepcopy(inp)
+# part 1 3901196
 
 
 def find_binary(binaries, comparison, equal):
@@ -43,7 +39,9 @@ def find_binary(binaries, comparison, equal):
     return binaries[0]
 
 
+oxygen = copy.deepcopy(inp)
+co2 = copy.deepcopy(inp)
 oxygen = find_binary(oxygen, 'max', '1')
 co2 = find_binary(co2, 'min', '0')
 print("part 2", int(co2, 2) * int(oxygen, 2))
-# 4412188
+# part 2 4412188

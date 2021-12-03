@@ -20,3 +20,7 @@ For the second part, another dimension "aim" is added, which adds a diagonal dir
 - on "forward" increase x with the distance, and increase y with the distance multiplied by the aim.
 
 I suspect this code might be expanded on in future days' puzzles.
+
+## Day 03
+Count the values for each bit in a series of bytes. Construct new bytes out of the most and least occurring numbers for each bit.
+For the second part, filter the original list of bytes by whether they follow a pattern defined by bit value occurrence.
