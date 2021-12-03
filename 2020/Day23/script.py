@@ -1,49 +1,35 @@
-test = "389125467"
-labelling = "916438275"
-
-cups = list(map(int, list(test)))
+inp = '916438275'
+testinp = '389125467'
 
 
-def find_destination(cups, current):
-    d = cups[current] - 1
-    while True:
-        for x in cups:
-            if x == d:
-                return cups.index(d)
-        d -= 1
-        if d < min(cups):
-            d = max(cups)
+# PART 1 STRING METHOD
+
+def rearrange(cups, number):
+    cups = number + cups.split(number)[1] + cups.split(number)[0]
+    return cups
 
 
-def move(cups, current):
-    pick = [x % len(cups) for x in range(current+1, current+4)]
-    print('pick', pick)
+current = 0
+cups = inp
+for i in range(100):
+    currentcup = cups[0]
 
-    pick = [cups[x] for x in pick]
-    current_number = cups[current]
+    # pick up 3 cups
+    clockwise = cups[1:4]
+    cups = cups.replace(clockwise, '')
+    nextcup = cups[1]
 
-    print('current:', cups[current])
-    print('cups:', cups)
-    print('pick:', pick)
+    # find the destination cup
+    destination = (int(currentcup) - 1) % 9
+    if destination == 0:
+        destination = 9
+    while str(destination) in clockwise:
+        destination = (destination - 1) % 9
+        if destination == 0:
+            destination = 9
 
-    del cups[current+1:current+4]
-    destination = find_destination(cups, current)
+    # replace the three cups
+    cups = rearrange(cups, nextcup)
+    cups = cups.replace(str(destination), str(destination) + clockwise)
 
-    print('cups:', cups)
-    print('destination:', cups[destination])
-
-    cups.insert(destination+1, pick[0])
-    cups.insert(destination+2, pick[1])
-    cups.insert(destination+3, pick[2])
-
-    print('cups:', cups)
-
-    next = cups.index(current_number)+1
-
-    return next, cups
-
-
-next = 0
-for i in range(10):
-    print('\n-- move', i+1, '--')
-    next, cups = move(cups, next)
+print('part 1:', rearrange(cups, '1')[1:])
