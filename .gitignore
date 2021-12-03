@@ -1,3 +1,4 @@
 venv/
 .idea/
 __pycache__
+/2021/testinput.txt
