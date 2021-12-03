@@ -1,12 +1,20 @@
-input = open('inp.txt').read().split('\n')
-import re
+# each allergen is found in exactly 1 ingredient
+# each ingredient contains 0 or 1 allergen
+# allergens are not always marked
 
-input = """mxmxvkd kfcds sqjhc nhms (contains dairy, fish)
-trh fvjkl sbzzf mxmxvkd (contains dairy)
-sqjhc fvjkl (contains soy)
-sqjhc mxmxvkd sbzzf (contains fish)""".split('\n')
+recipes = open('testinput.txt').read().split('\n')
+recipes = [[x.split(' (contains ')[0], x.split(' (contains ')[1].strip(')')] for x in recipes]
+recipes = [{'ingredients': sorted(x[0].split(' ')), 'allergens':  x[1].split(', ')} for x in recipes]
+
+all_allergens = set([item for a in recipes for item in a['allergens']])
+all_ingredients = set([item for i in recipes for item in i['ingredients']])
+
+possible_ingredients = {a: set() for a in all_allergens}
+
+for a in all_allergens:
+    for recipe in recipes:
+        if a in recipe['allergens']:
+            possible_ingredients[a].update(recipe['ingredients'])
 
 
-for line in input:
-    alls = [y for x in re.findall(r' \(contains (.*)\)', line) for y in x.split(', ')]
-    ings = line.split(' (')[0].split(' ')
+# safe: kfcds, nhms, sbzzf, trh
