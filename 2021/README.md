@@ -24,3 +24,6 @@ I suspect this code might be expanded on in future days' puzzles.
 ## Day 03
 Count the values for each bit in a series of bytes. Construct new bytes out of the most and least occurring numbers for each bit.
 For the second part, filter the original list of bytes by whether they follow a pattern defined by bit value occurrence.
+
+## Day 04
+A simple game of bingo! Find the first and last board to win and calculate scores for those.
