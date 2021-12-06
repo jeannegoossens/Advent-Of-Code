@@ -1,37 +1,74 @@
-input = open('input.txt').read().split('\n')
+inp = open('input.txt').read().split('\n')
 
-tiles = []
-print(input)
 
-for line in input:
-    print(line)
-    directions = {'se': line.count('se')}
-    line = line.replace('se', '..')
-    print(line)
-    directions['nw'] = line.count('nw')
-    line = line.replace('nw', '..')
-    print(line)
-    directions['sw'] = line.count('sw')
-    line = line.replace('sw', '..')
-    print(line)
-    directions['ne'] = line.count('ne')
-    line = line.replace('ne', '..')
-    print(line)
-    directions['e'] = line.count('e')
-    directions['w'] = line.count('w')
-    position = (abs(directions['se'] - directions['nw']), abs(directions['sw'] - directions['ne']), abs(directions['e'] - directions['w']))
-    print(directions)
-    if position in tiles:
-        print(f'flip{position} back to white')
-        tiles.pop(tiles.index(position))
+def takestep(location, path):
+    se = (-1, 1)
+    ne = (1, 1)
+    e = (0, 2)
+    sw = (-1, -1)
+    nw = (1, -1)
+    w = (0, -2)
+
+    if path.startswith('se'):
+        step = se
+        path = path[2:]
+    elif path.startswith('ne'):
+        step = ne
+        path = path[2:]
+    elif path.startswith('sw'):
+        step = sw
+        path = path[2:]
+    elif path.startswith('nw'):
+        step = nw
+        path = path[2:]
+    elif path.startswith('e'):
+        step = e
+        path = path[1:]
+    elif path.startswith('w'):
+        step = w
+        path = path[1:]
+    location = tuple(map(lambda i, j: i + j, location, step))
+    return location, path
+
+
+start = (0, 0)
+flipped = []
+paths = inp
+
+for path in paths:
+    location = start
+    while len(path) > 0:
+        location, path = takestep(location, path)
+    if location in flipped:
+        flipped.remove(location)
     else:
-        print(f'flip{position} to black')
-        tiles.append(position)
+        flipped.append(location)
+print('part 1:', len(flipped))
 
-print(tiles)
-print(len(tiles))
 
-# 597 too high
-# 585 too high
+# part 2
+def day(floor):
+    neighbours = [(-1, 1), (1, 1), (0, 2), (-1, -1), (1, -1), (0, -2)]
+    newfloor = []
+    for tile in floor:
+        active_neighbours = 0
+        for neighbour in neighbours:
+            if tuple(map(lambda i, j: i + j, tile, neighbour)) in floor:
+                active_neighbours += 1
+        if active_neighbours != 0 and active_neighbours <= 2:
+            newfloor.append(tile)
+        for neighbour in neighbours:
+            active_neighbours = 0
+            n = tuple(map(lambda i, j: i + j, tile, neighbour))
+            for theirs in neighbours:
+                if tuple(map(lambda i, j: i + j, n, theirs)) in floor:
+                    active_neighbours += 1
+            if active_neighbours == 2:
+                newfloor.append(n)
+    return list(set(newfloor))
 
-# 367 too low
+
+floor = flipped
+for x in range(100):
+    floor = day(floor)
+print('part 2:', len(floor))
