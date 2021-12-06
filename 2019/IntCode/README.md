@@ -16,6 +16,11 @@ I'm going back to 2019 AOC and try to complete the IntCode puzzles one by one. I
 `Intcode program` a list of integers separated by commas
 
 `opcode` (either 1, 2 or 99) indicates what to do
+- 99: program is finished and halts immediately
+- 1: adds together numbers read from two positions and stores the result in a third position
+- 2: multiplies numbers read from two positions and stores the result in a third position
+- 3: takes input and saves that to a position
+- 4: returns value in a position as output
 
 `instruction` combination of opcode and parameters
 
