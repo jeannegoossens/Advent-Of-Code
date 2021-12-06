@@ -1,45 +1,41 @@
 # 2015
 # Day 15
 
-input = """Frosting: capacity 4, durability -2, flavor 0, texture 0, calories 5
+inp = """Frosting: capacity 4, durability -2, flavor 0, texture 0, calories 5
 Candy: capacity 0, durability 5, flavor -1, texture 0, calories 8
 Butterscotch: capacity -1, durability 0, flavor 5, texture 0, calories 6
 Sugar: capacity 0, durability 0, flavor -2, texture 2, calories 1"""
+inp = inp.split('\n')
+inp = {i.split(': ')[0]: {j.split(' ')[0]: j.split(' ')[1] for j in i.split(': ')[1].split(', ')} for i in inp}
 
-ingredients = {}
+combinations = []
+for a in range(1,101):
+    for b in range(1,101):
+        for c in range(1,101):
+            for d in range(1,101):
+                if sum([a,b,c,d]) == 100:
+                    combinations.append([a,b,c,d])
 
-for x in input.split('\n'):
-   y = x.replace(':', '').replace(',', '').split(' ')
-   ingredient = {'capacity': y[2], 'durability': y[4], 'flavor': y[6], 'texture': y[8], 'calories': y[10]}
-   ingredients[y[0]] = ingredient
-
-print(ingredients)
-
-
-def getScore(ingredients, distribution):
-    capacity = ingredients['Frosting']['capacity'] * distribution[0] + ingredients['Candy']['capacity'] * distribution[
-        0] + ingredients['Butterscotch']['capacity'] * distribution[0] + ingredients['Sugar']['capacity'] * \
-               distribution[0]
-    durability = ingredients['Frosting']['durability'] * distribution[0] + ingredients['Candy']['durability'] * \
-                 distribution[0] + ingredients['Butterscotch']['durability'] * distribution[0] + ingredients['Sugar'][
-                     'durability'] * distribution[0]
-    flavor = ingredients['Frosting']['flavor'] * distribution[0] + ingredients['Candy']['flavor'] * distribution[0] + \
-             ingredients['Butterscotch']['flavor'] * distribution[0] + ingredients['Sugar']['flavor'] * distribution[0]
-    texture = ingredients['Frosting']['texture'] * distribution[0] + ingredients['Candy']['texture'] * distribution[0] + \
-              ingredients['Butterscotch']['texture'] * distribution[0] + ingredients['Sugar']['texture'] * distribution[
-                  0]
-    # calories = ingredients['Frosting']['capacity']*distribution[0] + ingredients['Candy']['capacity']*distribution[0] + ingredients['Butterscotch']['capacity']*distribution[0] + ingredients['Sugar']['capacity']*distribution[0]
-
-    score = capacity * durability * flavor * texture
-    return score
-
-
-distribution = [100,0,0,0]
-maxScore = 0
-
-for x in range(100000000):
-    maxScore = max(maxScore, getScore(ingredients, distribution))
-    distribution[0] -= 1
-    distribution[1] += 1
-
-    # ??????
+maxscore = 0
+for c in combinations:
+    capacity = 0
+    durability = 0
+    flavor = 0
+    texture = 0
+    calories = 0
+    inp['Frosting']['amount'] = c[0]
+    inp['Candy']['amount'] = c[1]
+    inp['Butterscotch']['amount'] = c[2]
+    inp['Sugar']['amount'] = c[3]
+    for ingredient in inp.keys():
+        capacity += int(inp[ingredient]['capacity']) * inp[ingredient]['amount']
+        durability += int(inp[ingredient]['durability']) * inp[ingredient]['amount']
+        flavor += int(inp[ingredient]['flavor']) * inp[ingredient]['amount']
+        texture += int(inp[ingredient]['texture']) * inp[ingredient]['amount']
+        calories += int(inp[ingredient]['calories']) * inp[ingredient]['amount']
+    if calories != 500:
+        continue
+    score = max(0, capacity) * max(0, durability) * max(0, flavor) * max(0, texture)
+    maxscore = max(maxscore, score)
+        
+print(maxscore)
