@@ -27,3 +27,9 @@ For the second part, filter the original list of bytes by whether they follow a 
 
 ## Day 04
 A simple game of bingo! Find the first and last board to win and calculate scores for those.
+
+## Day 05
+Calculate the amount of coordinates where at least two of a set of vectors cross one another.
+
+## Day 06
+For a population of fish that multiplies exponentially, calculate the size of the population after a given number of days.
