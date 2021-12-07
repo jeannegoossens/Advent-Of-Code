@@ -33,3 +33,6 @@ Calculate the amount of coordinates where at least two of a set of vectors cross
 
 ## Day 06
 For a population of fish that multiplies exponentially, calculate the size of the population after a given number of days.
+
+## Day 07
+Do some calculation of the sum of distance of all array elements to a certain point, for any point. In part 2 I used [gaussian summation](https://jeannegoossens.it/post/4/gaussian-summation) for speed.

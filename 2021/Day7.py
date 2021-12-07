@@ -1,10 +1,8 @@
-import numpy as np
-
 crabs = [int(i) for i in open("inputs/day7.txt").read().split(',')]
-crabs = np.array(crabs)
 
-minfuel = sum(crabs)
+minfuel = sum(crabs)*sum(crabs)
 for position in range(min(crabs), max(crabs)+1):
-    fuel = sum(abs(crabs - position))
-    minfuel = min(minfuel, fuel)
+    # gaussian summation = n * (n + 1) / 2
+    fuel = sum([abs(n - position) * (abs(n - position) + 1) / 2 for n in crabs])
+    minfuel = min(minfuel, int(fuel))
 print(minfuel)
