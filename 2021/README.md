@@ -36,3 +36,6 @@ For a population of fish that multiplies exponentially, calculate the size of th
 
 ## Day 07
 Do some calculation of the sum of distance of all array elements to a certain point, for any point. In part 2 I used [gaussian summation](https://jeannegoossens.it/post/4/gaussian-summation) for speed.
+
+## Day 08
+terrible.
