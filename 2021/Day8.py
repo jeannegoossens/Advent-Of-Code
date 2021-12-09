@@ -33,7 +33,7 @@ def decode(row):
     nr1 = list([i for i in row['input'] if len(i) == 2][0])
     nr4 = list([i for i in row['input'] if len(i) == 4][0])
     nr7 = list([i for i in row['input'] if len(i) == 3][0])
-    nr8 = list([i for i in row['input'] if len(i) == 7][0]
+    nr8 = list([i for i in row['input'] if len(i) == 7][0])
 
     # the other numbers have one of two lengths
     len5 = [i for i in row['input'] if len(i) == 5]
