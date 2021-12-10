@@ -38,4 +38,10 @@ For a population of fish that multiplies exponentially, calculate the size of th
 Do some calculation of the sum of distance of all array elements to a certain point, for any point. In part 2 I used [gaussian summation](https://jeannegoossens.it/post/4/gaussian-summation) for speed.
 
 ## Day 08
-terrible.
+Parsing 7-segment display input codes to the matching numbers, based on the amount of segments active etc.
+
+## Day 09
+A 2-dimensional grid with local minima. First, find all local minima, then calculate the size of the basins those reside in.
+
+## Day 10
+Detecting Syntax errors on a series of different brackets. Both check for incorrect closing brackets, and detect missing closing brackets.
