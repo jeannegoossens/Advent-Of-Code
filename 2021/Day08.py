@@ -1,4 +1,4 @@
-inp = open("inputs/day8.txt").read().split('\n')
+inp = open("inputs/day08.txt").read().split('\n')
 rows = [{'input': i.split(' | ')[0].split(' '), 'output': i.split(' | ')[1].split(' ')} for i in inp]
 
 

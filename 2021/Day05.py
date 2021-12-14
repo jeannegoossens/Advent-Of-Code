@@ -1,4 +1,4 @@
-inp = open("inputs/day5.txt").read().split('\n')
+inp = open("inputs/day05.txt").read().split('\n')
 
 lines = []
 for i in inp:

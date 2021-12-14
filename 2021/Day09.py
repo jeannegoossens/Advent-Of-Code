@@ -1,4 +1,4 @@
-inp = [[int(i) for i in list(x)] for x in open("inputs/day9.txt").read().split('\n')]
+inp = [[int(i) for i in list(x)] for x in open("inputs/day09.txt").read().split('\n')]
 
 generalneighbours = [(-1, 0), (0, -1), (1, 0), (0, 1)]
 

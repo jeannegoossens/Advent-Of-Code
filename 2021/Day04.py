@@ -1,5 +1,5 @@
 import re
-inp = open("inputs/day4.txt").read().split('\n\n')
+inp = open("inputs/day04.txt").read().split('\n\n')
 
 
 def makeBoard(board):

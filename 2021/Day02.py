@@ -1,4 +1,4 @@
-inp = open("input.txt").read().split('\n')
+inp = open("inputs/day02.txt").read().split('\n')
 
 x = 0
 y = 0

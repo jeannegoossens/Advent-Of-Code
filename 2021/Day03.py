@@ -1,5 +1,5 @@
 import copy
-inp = open("inputs/day3.txt").read().split('\n')
+inp = open("inputs/day03.txt").read().split('\n')
 
 
 def get_position_count(binaries):

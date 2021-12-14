@@ -1,4 +1,4 @@
-crabs = [int(i) for i in open("inputs/day7.txt").read().split(',')]
+crabs = [int(i) for i in open("inputs/day07.txt").read().split(',')]
 
 minfuel = sum(crabs)*sum(crabs)
 for position in range(min(crabs), max(crabs)+1):

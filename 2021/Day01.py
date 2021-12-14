@@ -1,4 +1,4 @@
-inp = [int(i) for i in open("input.txt").read().split('\n')]
+inp = [int(i) for i in open("inputs/day01.txt").read().split('\n')]
 
 prev = sum(inp[0:3])
 count = 0

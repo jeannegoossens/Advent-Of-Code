@@ -1,4 +1,4 @@
-fish = [int(i) for i in open("inputs/day6.txt").read().split(',')]
+fish = [int(i) for i in open("inputs/day06.txt").read().split(',')]
 fish = {i: fish.count(i) for i in range(9)}
 
 
