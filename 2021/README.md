@@ -45,3 +45,10 @@ A 2-dimensional grid with local minima. First, find all local minima, then calcu
 
 ## Day 10
 Detecting Syntax errors on a series of different brackets. Both check for incorrect closing brackets, and detect missing closing brackets.
+
+# ...
+
+## Day 14
+This one was another puzzle where part 2 simply increases the number of steps. Simple manipulation would quickly result in such a long polymer that the code would slow down too much.
+Thinking back to day 6 where the same issue occurred, I considered a similar solution. Counting the occurring pairs instead of tracking a long string or list would be much faster.
+In order to have correct letter counts at the end, I also had to keep track of that. This made the code run almost instantly!
