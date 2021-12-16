@@ -13,27 +13,39 @@ for j in range(1,5):
     newinp.extend(newstuff)
 inp = [[x for x in y] for y in newinp]
 
-# load the graph
-values = {}
+startnode = (0,0)
+endnode = (len(inp)-1, len(inp[0])-1)
+
+risklevels = {}
 for y in range(len(inp)):
     for x in range(len(inp[0])):
-        values[(y,x)] = inp[y][x]
+        risklevels[(y,x)] = inp[y][x]
 
+distances = {n: 1000000 for n in risklevels.keys()}
+distances[startnode] = 0
+
+# generate neighbours for each node
 GG = nx.grid_graph(dim=[len(inp), len(inp[0])])
-nx.set_node_attributes(GG, values, "risklevel")
 
+# set starting sets
+unvisited = {n: 1000000 for n in risklevels.keys()}
+visited = set()
+currentnode = startnode
 
-# start Dijkstra
-def getweight(u, v, d):
-    node_v_wt = GG.nodes[v]["risklevel"]
-    return node_v_wt
+i = 1
+while endnode not in visited:
+    for neighbour in GG[currentnode]:
+        if neighbour in unvisited:
+            distance = distances[currentnode] + risklevels[neighbour]
+            unvisited[neighbour] = min(distances[neighbour], distance)
+            distances[neighbour] = unvisited[neighbour]
+    unvisited.pop(currentnode)
+    visited.update([currentnode])
+    if currentnode == endnode:
+        break
+    currentnode = min(unvisited, key=unvisited.get)
+    i += 1
 
-
-shortest = nx.dijkstra_path(GG, (0,0), (len(inp)-1, len(inp[0])-1), weight=getweight)
-total = 0
-for node in shortest:
-    total += GG.nodes[node]['risklevel']
-print(total-inp[0][0])
-
+print(distances[endnode])
 # part 1: 373
 # part 2: 2868
