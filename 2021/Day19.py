@@ -54,14 +54,15 @@ class Scanner:
 def find_overlap(knowngrid, scanners, knownscanners):
     for known_beacon in knowngrid:
         relative_known_beacons = [tuple(map(lambda i, j: i - j, t, known_beacon)) for t in knowngrid]
-        for scanner in scanners.values():
+        for scanner in [scanners[4]]:
             if scanner.id in knownscanners:
                 continue
             for oriented_beacons in s.orientations:
                 for other_beacon in oriented_beacons:
                     relative_other_beacons = [tuple(map(lambda i, j: i - j, t, other_beacon)) for t in oriented_beacons]
                     overlap = list(set(relative_known_beacons) & set(relative_other_beacons))
-                    if len(overlap) > 12:
+                    if len(overlap) >= 10:
+                        print(sorted(overlap))
                         for j in relative_other_beacons:
                             knowngrid.append((j[0]+known_beacon[0], j[1]+known_beacon[1], j[2]+known_beacon[2]))
                         scanner.location = (other_beacon[0] + known_beacon[0],
@@ -83,15 +84,18 @@ print("SCANNERS INITIALLY")
 for s in scanners.values():
     print(s)
 
-knowngrid = scanners[0].beacons.copy()
-knownscanners = [0]
+knowngrid = scanners[1].beacons.copy()
+knownscanners = [1]
 
 print("\nDATA KNOWN AT START")
 print("known grid", knowngrid)
 print("known scanners", knownscanners)
 
 print("\nSTARTING CALCULATION")
-while len(knownscanners) < len(scanners.keys()):
+while len(knownscanners) < 2:
     knowngrid, knownscanners = find_overlap(knowngrid, scanners, knownscanners)
+
+    print("known grid", knowngrid)
+    print("known scanners", knownscanners)
 
 print("solution:", len(set(knowngrid)))
