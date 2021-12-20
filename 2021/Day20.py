@@ -34,9 +34,8 @@ def printimage(image):
         print(row)
 
 
-def enhance_image(pixels, background):
+def enhance_image(pixels, bounds, background):
     newimage = set()
-    bounds = findbounds(pixels)
     boundary = {  # get all pixels in the actual image
         (x, y)
         for x in range(bounds[0][1], bounds[1][1] + 1)
@@ -65,10 +64,14 @@ def countlit(image):
     return len(image)
 
 
+bounds = findbounds(pixels)
 for step in range(50):
     background = step % 2 == 1
 
-    pixels = enhance_image(pixels, background)
+    # expand the bounds by 1 in all directions each step
+    bounds = [(bounds[0][0] - 1, bounds[0][1] - 1), (bounds[1][0] + 1, bounds[1][1] + 1)]
+
+    pixels = enhance_image(pixels, bounds, background)
 
     if step == 1:
         print("part 1:", countlit(pixels))
@@ -76,5 +79,4 @@ for step in range(50):
         print("part 2:", countlit(pixels))
 
 # part 1: 5179
-# part 2:
-# 17280 too high
+# part 2: 16112
