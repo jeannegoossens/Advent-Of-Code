@@ -1,45 +1,28 @@
-# instructions = [i.split(' ') for i in open('inputs/day24.txt').read().split('\n')]
+# i    0    1    2    3    4    5    6    7    8    9   10   11   12   13
+Z = [  1,   1,   1,   1,   1,  26,   1,  26,  26,   1,  26,  26,  26,  26]  # z div
+X = [ 10,  12,  10,  12,  11, -16,  10, -11, -13,  13,  -8,  -1,  -4, -14]  # x add
+Y = [ 12,   7,   8,   8,  15,  12,   8,  13,   3,  13,   3,   9,   4,  13]  # y add
+# w = [  9,   9,   9,   9,   9,   9,   9,   9,   9,   9,   9,   9,   9,   9]  # w input
 
 
-def run_program(modelnr):
-    z = 0
-    w = int(modelnr[0])
-    z = (int(z / 1) * (25 * (((z % 26) + 10 == w) == 0) + 1)) + ((w + 12) * (((z % 26) + 10 == w) == 0))
-    w = int(modelnr[1])
-    z = (int(z / 1) * (25 * (((z % 26) + 12 == w) == 0) + 1)) + ((w + 7) * (((z % 26) + 12 == w) == 0))
-    w = int(modelnr[2])
-    z = (int(z / 1) * (25 * (((z % 26) + 10 == w) == 0) + 1)) + ((w + 8) * (((z % 26) + 10 == w) == 0))
-    w = int(modelnr[3])
-    z = (int(z / 1) * (25 * (((z % 26) + 12 == w) == 0) + 1)) + ((w + 8) * (((z % 26) + 12 == w) == 0))
-    w = int(modelnr[4])
-    z = (int(z / 1) * (25 * (((z % 26) + 11 == w) == 0) + 1)) + ((w + 15) * (((z % 26) + 11 == w) == 0))
-    w = int(modelnr[5])
-    z = (int(z / 26) * (25 * (((z % 26) + -16 == w) == 0) + 1)) + ((w + 12) * (((z % 26) + -16 == w) == 0))
-    w = int(modelnr[6])
-    z = (int(z / 1) * (25 * (((z % 26) + 10 == w) == 0) + 1)) + ((w + 8) * (((z % 26) + 10 == w) == 0))
-    w = int(modelnr[7])
-    z = (int(z / 26) * (25 * (((z % 26) + -11 == w) == 0) + 1)) + ((w + 13) * (((z % 26) + -11 == w) == 0))
-    w = int(modelnr[8])
-    z = (int(z / 26) * (25 * (((z % 26) + -13 == w) == 0) + 1)) + ((w + 3) * (((z % 26) + -13 == w) == 0))
-    w = int(modelnr[9])
-    z = (int(z / 1) * (25 * (((z % 26) + 13 == w) == 0) + 1)) + ((w + 13) * (((z % 26) + 13 == w) == 0))
-    w = int(modelnr[10])
-    z = (int(z / 26) * (25 * (((z % 26) + -8 == w) == 0) + 1)) + ((w + 3) * (((z % 26) + -8 == w) == 0))
-    w = int(modelnr[11])
-    z = (int(z / 26) * (25 * (((z % 26) - 1 == w) == 0) + 1)) + ((w + 9) * (((z % 26) - 1 == w) == 0))
-    w = int(modelnr[12])
-    z = (int(z / 26) * (25 * (((z % 26) - 4 == w) == 0) + 1)) + ((w + 4) * (((z % 26) - 4 == w) == 0))
-    w = int(modelnr[13])
-    z = (int(z / 26) * (25 * (((z % 26) - 14 == w) == 0) + 1)) + ((w + 13) * (((z % 26) - 14 == w) == 0))
+def run_program(w):
+    w = [int(i) for i in w]
+    x, y, z = 0, 0, 0
+    for instr in range(14):
+        x = 0 if ((z % 26) + X[instr]) == int(w[instr]) else 1
+        y = (25 if x == 1 else 0) + 1
+        z = int(z / Z[instr]) * y
+        z = z + ((int(w[instr]) + Y[instr]) if x == 1 else 0)
     return z == 0
 
 
-modelnr = 99999999999999
+modelnr = 99997258454321
 result = False
 while not result:
     result = run_program(str(modelnr))
     if result:
         print(modelnr, result)
+        break
     if modelnr % 100000 == 54321:
         print(modelnr)
     modelnr -= 1
