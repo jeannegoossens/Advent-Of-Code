@@ -4,3 +4,5 @@ __pycache__
 /2021/testinput.txt
 /*/*.ipynb
 /*/.ipynb_checkpoints
+.env
+/jupyter
