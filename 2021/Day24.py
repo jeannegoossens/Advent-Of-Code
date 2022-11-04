@@ -17,7 +17,7 @@ def solve(digit, z):
             sol[digit] = w
             return solve(digit+1, thenz)
     else:
-        for w in range(9, 0, -1):
+        for w in range(1, 10):
             thenz = (26 * z) + w + params[digit][1]
             if solve(digit + 1, thenz):
                 sol[digit] = w
