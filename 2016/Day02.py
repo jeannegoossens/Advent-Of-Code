@@ -1,32 +1,49 @@
 input = open('inputs/day02.txt').read().split('\n')
 
-grid = [[1], [2,3,4], [5,6,7,8,9], ['A','B','C'], ['D']]
+grid = [1,2,3,4,5,6,7,8,9,'A','B','C','D']
 
-position = 5
+position = 4
+
+#     1                 0
+#   2 3 4             1 2 3
+# 5 6 7 8 9         4 5 6 7 8
+#   A B C             9 10 11
+#     D                 12
 
 def move(position, direction):
     if direction == 'U':
-        if position in [1,2,4,5,9]:
+        if position in [0, 1, 3, 4, 8]:
             return position
+        elif position in [2, 12]:
+            return position - 2
         else:
-            return position - 3
+            return position - 4
     elif direction == 'L':
-        if position in [1,2,5,'A','D']:
+        if position in [0, 1, 4, 9, 12]:
             return position
         else:
             return position - 1
     elif direction == 'R':
-        if position in [1,4,9,'C','D']:
+        if position in [0, 3, 8, 11, 12]:
             return position
         else:
             return position + 1
     elif direction == 'D':
-        if position in [5,'A','D','C',9]:
+        if position in [4, 9, 12, 11, 8]:
             return position
+        elif position in [0, 10]:
+            return position + 2
         else:
-            return position + 3
+            return position + 4
 
+code = ''
 for line in input:
+    print(line)
     for direction in line:
         position = move(position, direction)
-    print(position)
+        print(direction, position)
+    code += str(grid[position])
+    # break
+print(code)
+
+# 8BBD2 wrong
