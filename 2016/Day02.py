@@ -36,14 +36,10 @@ def move(position, direction):
         else:
             return position + 4
 
+
 code = ''
 for line in input:
-    print(line)
     for direction in line:
         position = move(position, direction)
-        print(direction, position)
     code += str(grid[position])
-    # break
 print(code)
-
-# 8BBD2 wrong
