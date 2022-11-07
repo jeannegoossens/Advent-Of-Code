@@ -1,48 +1,62 @@
 input = open('inputs/input07.txt').read().split('\n')
 
-import re
-data = {}
+wires = {}
+integers = {}
 
 for line in input:
-    line = line.split(' -> ')
-    data[line[1]] = line[0]
-
-print(data)
-level = 0
-
-def find(code):
-    global level
-    command = data[code]
-    signal = re.findall('[A-Z]+', command)
-    wires = re.findall('[a-z0-9]+', command)
-    for x in range(len(wires)):
-        if wires[x].isnumeric():
-            wires[x] = int(wires[x])
-        elif wires[x].isalpha():
-            level += 1
-            check = find(wires[x].strip())
-            wires[x] = check
-            if type(check) == int:
-                data[code] = str(check)
-            level -= 1
-        else:
-            print(wires[x], 'not number or letter')
-
-    if not signal:
-        return wires[0]
-    elif signal[0] == 'AND':
-        return wires[0] & wires[1]
-    elif signal[0] == 'OR':
-        return wires[0] | wires[1]
-    elif signal[0] == 'NOT':
-        return ~wires[0] & 0xffff
-    elif signal[0] == 'LSHIFT':
-        return wires[0] << wires[1]
-    elif signal[0] == 'RSHIFT':
-        return wires[0] >> wires[1]
+    instr = line.split()
+    if instr[-1] in wires.keys():
+        raise Exception
     else:
-        print(code, command, 'ERROR')
-        raise IndexError
+        if (len(instr) == 3) and instr[0].isnumeric():
+            integers[instr[-1]] = int(instr[0])
+        wires[instr[-1]] = ' '.join(instr[:-2])
 
+# part 2: start b with the solution to part 1
+wires['b'] = '956'
+integers['b'] = '956'
 
-print('solution to part 1:', find('a'))
+while len(integers.keys()) < len(wires.keys()):
+    for wire, formula in wires.items():
+        if wire not in integers:
+            forms = formula.split()
+            newformula = []
+            for f in forms:
+                if f in integers.keys():
+                    newformula.append(str(integers[f]))
+                elif f in ['NOT', 'OR', 'AND', 'LSHIFT', 'RSHIFT']:
+                    if f == 'NOT':
+                        newformula.append('~')
+                    elif f == 'OR':
+                        newformula.append('|')
+                    elif f == 'AND':
+                        newformula.append('&')
+                    elif f == 'LSHIFT':
+                        newformula.append('<<')
+                    elif f == 'RSHIFT':
+                        newformula.append('>>')
+                else:
+                    newformula.append(f)
+            calculatable = True
+            for n in newformula:
+                if not n.lstrip('-').isnumeric() and n not in ['~', '|', '&', '<<', '>>']:
+                    calculatable = False
+            if wire not in integers.keys() and calculatable:
+                if len(newformula) == 2:
+                    wires[wire] = ~ int(newformula[1])
+                elif len(newformula) == 1:
+                    wires[wire] = int(newformula[0])
+                else:
+                    if newformula[1] == '|':
+                        wires[wire] = int(newformula[0]) | int(newformula[2])
+                    elif newformula[1] == '&':
+                        wires[wire] = int(newformula[0]) & int(newformula[2])
+                    elif newformula[1] == '<<':
+                        wires[wire] = int(newformula[0]) << int(newformula[2])
+                    elif newformula[1] == '>>':
+                        wires[wire] = int(newformula[0]) >> int(newformula[2])
+                integers[wire] = wires[wire]
+            else:
+                wires[wire] = ' '.join(newformula)
+
+print(integers['a'])
