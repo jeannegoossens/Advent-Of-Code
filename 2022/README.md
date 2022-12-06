@@ -11,3 +11,9 @@ alphabet, find common letters in strings
 
 ### Day 04
 find overlapping ranges
+
+### Day 05
+complicated input parsing. Moving items between stacks.
+
+### Day 06
+Finding the first sequence of x unique letters in a string
