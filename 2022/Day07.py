@@ -1,71 +1,63 @@
 inp = open('inputs/Day07.txt').read().split('\n')
 
-directories = {'': {}}
-
 # track our path, for there are nested dirs with similar names
-prevdir = []
-curdir = ''
+prevdir = []  # parent dirs
+curdir = ''  # current dir
+sizes = {'': 0}
 
-# deduct the file system
-for line in inp:
+
+def getpath(prevdir, curdir):
+    # the path to a dir consists of all parent dirs
     if len(prevdir) > 0:
         path = '/'.join(prevdir) + '/' + curdir
     else:
         path = curdir
+    return path
+
+
+# count the total sizes for each dir
+for line in inp:
+    # get the full path to the current dir
+    path = getpath(prevdir, curdir)
+
+    # now parse the line
     if line == '$ cd /':
+        # go back to home dir
         prevdir = []
         curdir = ''
-    elif line == '$ ls':
-        continue
+
     elif line == '$ cd ..':
+        # go one step back
         curdir = prevdir.pop()
+
     elif line.startswith('$ cd'):
+        # step into dir
         prevdir.append(curdir)
         curdir = line.split()[2]
+
     elif line.split()[0].isnumeric():
-        directories[path][line.split()[1]] = int(line.split()[0])
+        # this is a line with a file size
+        for topdir in range(len(prevdir)):
+            # for each parent directory increase the size with the found file size
+            sizes[getpath(prevdir[:topdir], prevdir[topdir])] += int(line.split()[0])
+        # and increase the current dir with the file size
+        sizes[path] += int(line.split()[0])
+
     elif line.startswith('dir'):
+        # this is a line with a dir name
         if len(prevdir) > 0:
-            dirpath = '/'.join(prevdir) +'/' + curdir + '/' + line.split()[1]
+            dirpath = path + '/' + line.split()[1]
         else:
             dirpath = curdir + '/' + line.split()[1]
-        directories[path][dirpath] = 'dir'
-        directories[dirpath] = {}
+        sizes[dirpath] = 0
 
-sizes = {k: 0 for k in directories.keys()}
+    # the other line types don't matter
 
-
-# recursively count the size of each dir
-def dive(curdir):
-    global sizes
-    dirsum = 0
-    for key, content in directories[curdir].items():
-        if type(content) == int:
-            dirsum += content
-        else:
-            dirsum += dive(key)
-
-    sizes[curdir] += dirsum
-    return dirsum
-
-
-# print the file system in a neat format
-def printdir(dir, level):
-    for k, v in directories[dir].items():
-        if v == 'dir':
-            print('  ' * level, v, k, sizes[k])
-            printdir(k, level + 1)
-        else:
-            print('  ' * level, k, v)
-    return
-
-
-dive('')
-
+# now get the sum of the small dirs
 total = sum([v for v in sizes.values() if v <= 100_000])
 print("part 1:", total)
 
-maxsize = 70_000_000
-freespace = maxsize - sizes['']
-s = [v for k, v in sorted(sizes.items(), key=lambda item: item[1]) if v > 30_000_000 - freespace]
+# and get the smallest dir to remove that frees up enough space
+spacetofree = 30_000_000 - (70_000_000 - sizes[''])
+s = [v for k, v in sorted(sizes.items(), key=lambda item: item[1]) if v > spacetofree]
 print("part 2:", s[0])
