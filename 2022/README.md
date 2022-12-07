@@ -17,3 +17,6 @@ complicated input parsing. Moving items between stacks.
 
 ### Day 06
 Finding the first sequence of x unique letters in a string
+
+### Day 07
+Deducting the contents of a file system according to terminal logs. Nested dirs and recursion.
