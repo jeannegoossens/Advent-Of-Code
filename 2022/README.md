@@ -25,3 +25,4 @@ Deducting the contents of a file system according to terminal logs. Nested dirs 
 Grid traversal. What trees have no higher neighbours in any direction?
 
 ### Day 09
+Dragging a rope in multiple directions and tracking its tail.
