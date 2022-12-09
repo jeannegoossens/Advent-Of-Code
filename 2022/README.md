@@ -23,3 +23,5 @@ Deducting the contents of a file system according to terminal logs. Nested dirs 
 
 ### Day 08
 Grid traversal. What trees have no higher neighbours in any direction?
+
+### Day 09
