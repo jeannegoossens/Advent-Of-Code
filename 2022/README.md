@@ -26,3 +26,6 @@ Grid traversal. What trees have no higher neighbours in any direction?
 
 ### Day 09
 Dragging a rope in multiple directions and tracking its tail.
+
+### Day 10
+Run multi cycle instructions across clock ticks, then draw letters.
