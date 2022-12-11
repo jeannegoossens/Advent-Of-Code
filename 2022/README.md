@@ -29,3 +29,6 @@ Dragging a rope in multiple directions and tracking its tail.
 
 ### Day 10
 Run multi cycle instructions across clock ticks, then draw letters.
+
+### Day 11
+Optimizing for many loops. Reducing numbers that are too big.
