@@ -32,3 +32,8 @@ Run multi cycle instructions across clock ticks, then draw letters.
 
 ### Day 11
 Optimizing for many loops. Reducing numbers that are too big.
+
+To make the number smaller, take the product of all numbers it needs to be modulo'd by, and modulo it by that product.
+This leaves a remainder which conserves enough information about the number, whilst being smaller.
+
+### Day 12
