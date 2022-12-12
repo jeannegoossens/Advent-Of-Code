@@ -20,18 +20,18 @@ while loc != Eidx:  # part 1
     locdist = queue[loc]
     del queue[loc]
     visited[loc] = locdist
+
     if inp[loc[0]][loc[1]] == 1 and not part2found:
         print("part 2:", locdist)
         part2found = True
 
     for direction in dirs:
         neighbour = (min(max(0, loc[0] + direction[0]), len(inp)-1), min(max(0, loc[1] + direction[1]), len(inp[0])-1))
-        if loc != neighbour:
+        if loc != neighbour and neighbour not in visited.keys():
             if inp[loc[0]][loc[1]] - inp[neighbour[0]][neighbour[1]] <= 1:
-                if neighbour not in visited.keys():
-                    if neighbour not in queue.keys():
-                        queue[neighbour] = locdist + 1
-                    else:
-                        queue[neighbour] = min(locdist + 1, queue[neighbour])
+                if neighbour not in queue.keys():
+                    queue[neighbour] = locdist + 1
+                else:
+                    queue[neighbour] = min(locdist + 1, queue[neighbour])
 
 print("part 1:", locdist)
