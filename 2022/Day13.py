@@ -1,58 +1,63 @@
-import re
 import ast
 
-inp = [i.replace('\n', ',') for i in open('inputs/Day13.txt').read().split('\n\n')]
-
-print(inp)
+inp = [ast.literal_eval(i.replace('\n', ',')) for i in open('inputs/Day13.txt').read().split('\n\n')]
 
 idxsum = 0
 
 
-def compare(first, second):
-    if type(first) == list and type(second) == int:
-        second = [second]
-    elif type(first) == int and type(second) == list:
-        first = [first]
+def compare(first, second, level=0):
+    if type(first) == int and type(second) == list:
+        return compare([first], second, level)
+    elif type(first) == list and type(second) == int:
+        return compare(first, [second], level)
 
-    print(first)
-    print(second)
-
-    if type(first) == int and type(second) == int:
-        if first == second:
-            return 2
-        elif first < second:
-            return True
-        else:
-            return False
-    elif type(first) == list and type(second) == list:
-        for idx, item in enumerate(first):
-            if idx >= len(second):
-                return False
+    if type(first) == list and type(second) == list:
+        for x in range(max(len(first), len(second))):
+            if x >= len(first):
+                return 1
+            elif x >= len(second):
+                return -1
             else:
-                order = compare(item, second[idx])
-                if order == 2:
-                    continue
+                comparison = compare(first[x], second[x], level+1)
+                if comparison == 1 or comparison == -1:
+                    return comparison
                 else:
-                    return order
-        # if len(second) > len(first):
-        return True
+                    continue
+
+    elif type(first) == int and type(second) == int:
+        if first < second:
+            return 1
+        elif first > second:
+            return -1
+        elif first == second:
+            return 0
+
+    return 0
 
 
-def checkline(line):
-    mylist = ast.literal_eval(line)
-    print(mylist)
-    for idx in range(len(mylist)-1):
-        order = compare(mylist[idx], mylist[idx+1])
-        print(order)
-        if order == 2:
-            continue
-        else:
-            return order
-
-
-for x in range(len(inp)):
-    if inp[x] != '':
-        if checkline(inp[x]):
-            idxsum += x+1
-
+for line in range(len(inp)):
+    if compare(inp[line][0], inp[line][1]) == 1:
+        idxsum += line+1
 print("part 1:", idxsum)
+
+
+inp = [ast.literal_eval(i) for i in open('inputs/Day13.txt').read().split('\n') if i != '']
+inp.append([[6]])
+inp.append([[2]])
+
+
+def bubblesort(inp):
+    offset = 1
+    changed = True
+    while changed:
+        changed = False
+        for i in range(len(inp) - offset):
+            if compare(inp[i], inp[i + 1]) < 1:
+                inp[i], inp[i + 1] = inp[i + 1], inp[i]
+                changed = True
+        offset += 1
+    return inp
+
+
+inp = bubblesort(inp)
+print("part 2:", (inp.index([[2]])+1) * (inp.index([[6]])+1))
