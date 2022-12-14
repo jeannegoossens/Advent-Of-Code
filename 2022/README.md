@@ -40,3 +40,8 @@ This leaves a remainder which conserves enough information about the number, whi
 Breadth First Search (BFS) through a grid filled with heigh levels. Climb a mountain one level at a time.
 
 ### Day 13
+Comparing nested lists to specific sorting rules, then use those comparisons to sort them.
+
+### Day 14
+Simulating the gravity of grains of sand falling onto a pile.
+
