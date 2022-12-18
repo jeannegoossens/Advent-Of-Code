@@ -45,3 +45,5 @@ Comparing nested lists to specific sorting rules, then use those comparisons to 
 ### Day 14
 Simulating the gravity of grains of sand falling onto a pile.
 
+### Day 18
+A three-dimensional grid, with the objective to count uncovered walls and hollow spaces within the sphere.
