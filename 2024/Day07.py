@@ -8,7 +8,7 @@ for line in inp:
     test = int(test)
     numbers = [int(n) for n in numbers.split()]
     checks = False
-    max_value = (2 ** len(numbers))
+    max_value = (2 ** (len(numbers) - 1))
     print(test, numbers, max_value)
     for tries in range(max_value):
         s = str(numbers[0])
@@ -30,5 +30,3 @@ for line in inp:
 
 print("Part 1:", sum)
 print("Part 2:")
-
-# 250027429 too low
